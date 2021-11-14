@@ -9,6 +9,8 @@ services:
       - 80:80
     volumes:
       - ./src:/var/www/html/
+      - ./vendor:/var/www/html/vendor
+      - .env:/var/www/html/.env
 
   db:
     image: mysql
