@@ -1,6 +1,8 @@
 <?php
+
 namespace api\App\Exceptions;
 
-class AlreadyExistsException extends \Exception {
+class AlreadyExistsException extends \Exception
+{
 
 }

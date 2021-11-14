@@ -1,6 +1,8 @@
 <?php
+
 namespace api\App\DI;
 
-interface IDefinitions {
+interface IDefinitions
+{
 	public function getDefinitions(): array;
 }

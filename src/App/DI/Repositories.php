@@ -2,6 +2,7 @@
 
 namespace api\App\DI;
 
+use api\App\Repository\PostRepository;
 use api\App\Repository\UserRepository;
 use function DI\autowire;
 
@@ -12,6 +13,7 @@ class Repositories implements IDefinitions
 	{
 		return [
 			UserRepository::class => autowire(UserRepository::class),
+			PostRepository::class => autowire(PostRepository::class),
 		];
 	}
 }

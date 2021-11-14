@@ -1,4 +1,5 @@
 <?php
+
 namespace api\App;
 
 class Database

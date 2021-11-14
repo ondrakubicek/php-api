@@ -1,9 +1,11 @@
 <?php
+
 namespace api\App\Model;
 
-class UserModel {
+class UserModel
+{
 	public function __construct(
-		private int $id,
+		private int    $id,
 		private string $name,
 		private string $email
 	)
