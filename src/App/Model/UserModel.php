@@ -1,12 +1,11 @@
 <?php
 namespace api\App\Model;
 
-class User {
+class UserModel {
 	public function __construct(
 		private int $id,
 		private string $name,
-		private string $email,
-		private string $password,
+		private string $email
 	)
 	{
 	}
@@ -26,8 +25,4 @@ class User {
 		return $this->email;
 	}
 
-	public function getPassword(): string
-	{
-		return $this->password;
-	}
 }

@@ -2,9 +2,12 @@
 
 namespace api\App\Controller\V1;
 
+use api\App\Exceptions\AlreadyExistsException;
+use api\App\Exceptions\NotFoundException;
 use api\App\Repository\UserRepository;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use \Firebase\JWT\JWT;
 
 class UserController {
 
@@ -17,8 +20,29 @@ class UserController {
 		ResponseInterface $response,
 	): ResponseInterface
 	{
-		//nothing yet
-		$response->getBody()->write("AHOJ");
+		$params = (array)$request->getParsedBody();
+
+		$email = $params['email'];
+		$password = $params['password'];
+
+		try {
+			$user = $this->userRepository->getUserByEmailAndPassword($email, $password);
+			$payload = array(
+				'iss' => $request->getServerParams()['SERVER_NAME'],
+				'exp' => time()+600, 'uId' => $user->getId()
+			);
+			try{
+				$jwt = JWT::encode($payload, $_ENV['JWT_TOKEN_SECRET'],'HS256');
+				$res = ["status"=>"succes","token"=>$jwt];
+
+			}catch (UnexpectedValueException $exception) {
+				$res = ["status" => "failed", "message" => $exception->getMessage()];
+			}
+		} catch (NotFoundException $exception){
+			$res = ["status" => "failed", "message" => $exception->getMessage()];
+		}
+
+		$response->getBody()->write(json_encode($res));
 		return $response;
 	}
 
@@ -33,12 +57,16 @@ class UserController {
 		$name = $params['name'];
 		$password = $params['password'];
 
-		//nothing yet
 		if($email && $name && $password) {
-			$this->userRepository->createUser($email,$name,$password);
-			$response->getBody()->write(json_encode(["status"=>"success"]));
+			try {
+				$this->userRepository->createUser($email, $name, $password);
+				$res = ["status"=>"success"];
+			} catch (AlreadyExistsException $exception){
+				$res = ["status" => "failed", "message" => $exception->getMessage()];
+			}
+			$response->getBody()->write(json_encode($res));
 		} else {
-			$response->getBody()->write(json_encode(["status"=>"missing param"]));
+			$response->getBody()->write(json_encode(["status"=>"failed", "message" => "missing required param"]));
 		}
 
 		return $response;
