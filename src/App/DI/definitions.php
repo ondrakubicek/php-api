@@ -1,6 +1,6 @@
 <?php
-use api\App\DI\Core;
 
 return array_merge(
-	(new Core())->getDefinitions()
+	(new \api\App\DI\Core())->getDefinitions(),
+	(new \api\App\DI\Repositories())->getDefinitions()
 );
