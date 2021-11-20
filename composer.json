@@ -3,7 +3,8 @@
     "type": "project",
     "autoload": {
         "psr-4": {
-            "api\\App\\": "App/"
+            "api\\App\\": "App/",
+            "api\\Tests\\": "tests/"
         }
     },
     "authors": [
@@ -21,6 +22,7 @@
         "php-di/slim-bridge": "^3.2",
         "slim/psr7": "^1.5",
         "tuupola/slim-jwt-auth": "^3.5",
-        "firebase/php-jwt": "^5.5"
+        "firebase/php-jwt": "^5.5",
+        "phpunit/phpunit": "^9.5"
     }
 }

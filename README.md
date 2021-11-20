@@ -32,3 +32,9 @@ PRIMARY KEY (`id`)
 
 quit
 ```
+
+### unit tests
+inside docker run
+```
+./vendor/bin/phpunit --configuration=phpunit.xml    
+```

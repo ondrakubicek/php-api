@@ -10,7 +10,9 @@ services:
     volumes:
       - ./src:/var/www/html/
       - ./vendor:/var/www/html/vendor
-      - .env.example:/var/www/html/.env.example
+      - ./tests:/var/www/html/tests
+      - ./.env:/var/www/html/.env
+      - ./phpunit.xml:/var/www/html/phpunit.xml
 
   db:
     image: mysql

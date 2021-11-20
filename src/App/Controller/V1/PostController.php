@@ -24,7 +24,7 @@ class PostController
 	): ResponseInterface
 	{
 		$params = (array)$request->getParsedBody();
-		$userId = $this->authService->getUserIdFromJwt($request);
+		$userId = $this->authService->getUserIdFromJwt($request->getHeader("Authorization")[0]);
 
 		$title = $params['title'];
 		$text = $params['text'];

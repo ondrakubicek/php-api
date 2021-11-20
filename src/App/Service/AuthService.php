@@ -4,7 +4,6 @@ namespace api\App\Service;
 
 use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
-use Psr\Http\Message\ServerRequestInterface;
 
 class AuthService
 {
@@ -22,9 +21,9 @@ class AuthService
 		return JWT::encode($payload, $_ENV['JWT_TOKEN_SECRET'], 'HS256');
 	}
 
-	public function getUserIdFromJwt(ServerRequestInterface $request): int
+	public function getUserIdFromJwt(String $authorizationHeader): int
 	{
-		$tokenBearer = $request->getHeader("Authorization")[0];
+		$tokenBearer = $authorizationHeader;
 
 		$matches = [];
 		preg_match(self::BEARER_REGEX, $tokenBearer, $matches);
